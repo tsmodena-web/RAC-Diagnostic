@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MODENA Smart AC Diagnosis</title>
+  <!-- Bootstrap 5 via CDN; internet is required for the CDN assets. -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    :root { --modena-navy:#123447; --modena-teal:#009688; --soft:#f3f7f9; }
+    body { background:var(--soft); color:#243642; }
+    .navbar-brand strong { letter-spacing:.04em; }
+    .hero { background:linear-gradient(120deg,#102f42,#176477); color:#fff; }
+    .section-card { border:0; border-radius:1rem; box-shadow:0 4px 18px rgba(16,47,66,.07); }
+    .section-title { color:var(--modena-navy); font-weight:700; }
+    .step-number { display:inline-grid; place-items:center; width:2rem;height:2rem;border-radius:50%;background:#dff4f1;color:#087c70;font-weight:700;margin-right:.55rem; }
+    .required::after { content:" *"; color:#dc3545; }
+    .form-label { font-weight:600; font-size:.92rem; }
+    .hint { font-size:.82rem; color:#687b86; }
+    .recommendation { border-left:4px solid var(--modena-teal); background:#eef9f7; }
+    .preview-box { background:#f7fafb; border:1px dashed #b8cbd3; border-radius:.75rem; padding:1rem; }
+    .photo-preview { max-height:140px; max-width:100%; object-fit:contain; border-radius:.5rem; }
+    footer { color:#71838d; }
+    @media print { .no-print, .navbar, footer { display:none!important; } body { background:#fff; } .section-card { box-shadow:none; border:1px solid #ddd; break-inside:avoid; } }
+  </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark" style="background:var(--modena-navy)">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+      <span class="bg-white text-success rounded-3 px-2 py-1 fw-bold">M</span>
+      <span><strong>MODENA</strong><small class="d-block text-white-50">SMART AC DIAGNOSIS</small></span>
+    </a>
+    <span class="navbar-text text-white-50 small d-none d-md-inline">Digital Technician Service Form</span>
+  </div>
+</nav>
+
+<main class="container py-4 py-lg-5">
+  <div class="hero rounded-4 p-4 p-lg-5 mb-4">
+    <div class="row align-items-center g-3">
+      <div class="col-lg-8">
+        <span class="badge text-bg-info mb-2">PROTOTIPE · AC SPLIT</span>
+        <h1 class="h2 fw-bold">Form Diagnosis AC Tidak Dingin</h1>
+        <p class="mb-0 text-white-50">Panduan pemeriksaan terstruktur, hasil pengukuran, bukti foto, tindakan, status pekerjaan, dan eskalasi Technical Support.</p>
+      </div>
+      <div class="col-lg-4 text-lg-end">
+        <div class="d-inline-block text-start bg-white bg-opacity-10 rounded-3 p-3">
+          <div class="small text-white-50">Jenis keluhan</div><div class="fw-semibold">AC menyala tetapi tidak dingin</div>
+          <div class="small text-white-50 mt-2">Form ini tidak menggantikan manual servis.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <form id="diagnosisForm">
+    <div class="card section-card mb-4">
+      <div class="card-body p-4">
+        <h2 class="h5 section-title mb-3"><span class="step-number">1</span>Identitas pekerjaan dan unit</h2>
+        <div class="row g-3">
+          <div class="col-md-4"><label class="form-label" for="ticket">Nomor tiket servis</label><input class="form-control" id="ticket" name="ticket" placeholder="Contoh: AC-2026-00125"></div>
+          <div class="col-md-4"><label class="form-label required" for="date">Tanggal kunjungan</label><input class="form-control" type="date" id="date" name="date" required></div>
+          <div class="col-md-4"><label class="form-label required" for="branch">Cabang / ASC</label><input class="form-control" id="branch" name="branch" required placeholder="Nama cabang atau ASC"></div>
+          <div class="col-md-6"><label class="form-label required" for="technician">Nama teknisi</label><input class="form-control" id="technician" name="technician" required placeholder="Nama teknisi pelaksana"></div>
+          <div class="col-md-6"><label class="form-label" for="customer">Nama konsumen / referensi lokasi</label><input class="form-control" id="customer" name="customer" placeholder="Nama atau ID konsumen"></div>
+          <div class="col-md-4"><label class="form-label required" for="model">Model AC</label><input class="form-control" id="model" name="model" required placeholder="Sesuai nameplate"></div>
+          <div class="col-md-4"><label class="form-label required" for="serial">Nomor seri</label><input class="form-control" id="serial" name="serial" required placeholder="Serial number unit"></div>
+          <div class="col-md-4"><label class="form-label" for="capacity">Kapasitas</label><select class="form-select" id="capacity" name="capacity"><option>0.5 PK</option><option>0.75 PK</option><option selected>1 PK</option><option>1.5 PK</option><option>2 PK</option><option>Lainnya / sesuai nameplate</option></select></div>
+          <div class="col-md-4"><label class="form-label" for="refrigerant">Refrigeran (sesuai nameplate)</label><select class="form-select" id="refrigerant" name="refrigerant"><option selected>R32</option><option>R410A</option><option>R22</option><option>Lainnya / verifikasi nameplate</option></select></div>
+          <div class="col-md-4"><label class="form-label" for="age">Usia unit (bulan)</label><input class="form-control" type="number" min="0" id="age" name="age" placeholder="Contoh: 8"></div>
+          <div class="col-md-4"><label class="form-label" for="history">Riwayat unit</label><select class="form-select" id="history" name="history"><option value="unknown">Belum diketahui</option><option value="new">Baru diinstal</option><option value="previous_repair">Pernah diperbaiki</option><option value="repeat_complaint">Keluhan berulang</option></select></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card section-card mb-4">
+      <div class="card-body p-4">
+        <h2 class="h5 section-title mb-3"><span class="step-number">2</span>Pemeriksaan awal</h2>
+        <div class="row g-3">
+          <div class="col-md-6"><label class="form-label" for="errorCode">Kode error</label><select class="form-select" id="errorCode" name="errorCode"><option value="none">Tidak ada kode error</option><option>E1</option><option>E2</option><option>E4</option><option>E7</option><option>E14</option><option>FE</option><option value="other">Kode lain / verifikasi manual</option></select><div class="hint mt-1">Pastikan arti kode sesuai manual servis model yang diperiksa.</div></div>
+          <div class="col-md-6"><label class="form-label" for="airflow">Aliran udara indoor</label><select class="form-select" id="airflow" name="airflow"><option value="normal">Normal</option><option value="weak">Lemah</option><option value="none">Tidak ada aliran udara</option></select></div>
+          <div class="col-md-6"><label class="form-label" for="indoor">Kondisi unit indoor</label><select class="form-select" id="indoor" name="indoor"><option value="normal">Normal secara visual</option><option value="dirty">Filter / evaporator kotor</option><option value="ice">Ada bunga es</option><option value="water">Ada kebocoran air</option><option value="other">Kondisi lain</option></select></div>
+          <div class="col-md-6"><label class="form-label" for="outdoor">Kondisi outdoor / kompresor</label><select class="form-select" id="outdoor" name="outdoor"><option value="running">Beroperasi</option><option value="stops">Berhenti setelah beberapa saat</option><option value="not_running">Tidak beroperasi</option><option value="unknown">Belum dapat dipastikan</option></select></div>
+          <div class="col-md-6"><label class="form-label" for="coil">Kondisi kondensor dan sirkulasi udara</label><select class="form-select" id="coil" name="coil"><option value="clean">Bersih, sirkulasi normal</option><option value="dirty">Kotor / aliran udara terhambat</option><option value="unknown">Belum diperiksa</option></select></div>
+          <div class="col-md-6"><label class="form-label" for="sensor">Pemeriksaan sensor / kontrol</label><select class="form-select" id="sensor" name="sensor"><option value="not_checked">Belum diperiksa</option><option value="normal">Hasil pemeriksaan normal</option><option value="abnormal">Hasil di luar spesifikasi</option></select></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card section-card mb-4">
+      <div class="card-body p-4">
+        <h2 class="h5 section-title mb-2"><span class="step-number">3</span>Hasil pengukuran teknis</h2>
+        <p class="hint mb-3">Catat hasil aktual dan bandingkan dengan spesifikasi model, kondisi operasi, serta alat ukur yang digunakan.</p>
+        <div class="row g-3">
+          <div class="col-sm-6 col-lg-3"><label class="form-label" for="voltage">Tegangan suplai (V)</label><input class="form-control" id="voltage" name="voltage" type="number" step="any" placeholder="Volt"></div>
+          <div class="col-sm-6 col-lg-3"><label class="form-label" for="current">Arus (A)</label><input class="form-control" id="current" name="current" type="number" step="any" placeholder="Ampere"></div>
+          <div class="col-sm-6 col-lg-3"><label class="form-label" for="tin">Temperatur udara masuk (°C)</label><input class="form-control" id="tin" name="tin" type="number" step="any" placeholder="°C"></div>
+          <div class="col-sm-6 col-lg-3"><label class="form-label" for="tout">Temperatur udara keluar (°C)</label><input class="form-control" id="tout" name="tout" type="number" step="any" placeholder="°C"></div>
+          <div class="col-md-4"><label class="form-label" for="pressure">Tekanan refrigeran (jika relevan)</label><input class="form-control" id="pressure" name="pressure" type="number" step="any" placeholder="Nilai terukur"></div>
+          <div class="col-md-2"><label class="form-label" for="pressureUnit">Satuan</label><select class="form-select" id="pressureUnit" name="pressureUnit"><option>psi</option><option>bar</option></select></div>
+          <div class="col-md-6"><label class="form-label" for="leak">Hasil uji kebocoran</label><select class="form-select" id="leak" name="leak"><option value="not_tested">Belum diuji</option><option value="no_leak_found">Tidak ditemukan kebocoran pada pengujian</option><option value="suspected">Ada indikasi, perlu konfirmasi</option><option value="confirmed">Kebocoran terkonfirmasi</option></select></div>
+          <div class="col-12"><label class="form-label" for="measureNotes">Catatan pengukuran dan kondisi pengujian</label><textarea class="form-control" rows="3" id="measureNotes" name="measureNotes" placeholder="Mode COOL, setpoint, kecepatan kipas, suhu lingkungan, lama pengoperasian, hasil alat ukur dan pembanding spesifikasi."></textarea></div>
+        </div>
+        <div class="alert alert-warning mt-3 mb-0"><strong>Keselamatan:</strong> pekerjaan kelistrikan dan refrigerasi hanya dilakukan teknisi kompeten. Untuk AC inverter, ikuti prosedur khusus pabrikan. Tekanan saja tidak cukup untuk menentukan jumlah refrigeran.</div>
+      </div>
+    </div>
+
+    <div class="card section-card mb-4">
+      <div class="card-body p-4">
+        <h2 class="h5 section-title mb-3"><span class="step-number">4</span>Diagnosis dan rekomendasi tindakan</h2>
+        <div class="row g-3">
+          <div class="col-md-6"><label class="form-label" for="diagnosis">Kesimpulan diagnosis</label><select class="form-select" id="diagnosis" name="diagnosis"><option value="pending">Diagnosis masih berlangsung</option><option value="airflow">Gangguan aliran udara / kebersihan</option><option value="electrical">Gangguan kelistrikan / kontrol</option><option value="refrigerant">Gangguan sistem refrigerasi</option><option value="sensor">Gangguan sensor</option><option value="unknown">Penyebab belum teridentifikasi</option><option value="confirmed_other">Penyebab lain — terverifikasi</option></select></div>
+          <div class="col-md-6"><label class="form-label" for="spare">Ketersediaan spare part</label><select class="form-select" id="spare" name="spare"><option value="unknown">Belum diketahui</option><option value="not_required">Tidak diperlukan</option><option value="available">Tersedia</option><option value="not_available">Tidak tersedia</option></select></div>
+          <div class="col-12">
+            <label class="form-label d-block">Tindakan yang dilakukan / direncanakan</label>
+            <div class="row g-2">
+              <div class="col-md-6"><div class="form-check"><input class="form-check-input" type="checkbox" name="action" value="Pembersihan filter / evaporator / kondensor" id="a1"><label class="form-check-label" for="a1">Pembersihan filter / evaporator / kondensor</label></div></div>
+              <div class="col-md-6"><div class="form-check"><input class="form-check-input" type="checkbox" name="action" value="Pemeriksaan kelistrikan dan koneksi" id="a2"><label class="form-check-label" for="a2">Pemeriksaan kelistrikan dan koneksi</label></div></div>
+              <div class="col-md-6"><div class="form-check"><input class="form-check-input" type="checkbox" name="action" value="Pemeriksaan sensor / PCB" id="a3"><label class="form-check-label" for="a3">Pemeriksaan sensor / PCB</label></div></div>
+              <div class="col-md-6"><div class="form-check"><input class="form-check-input" type="checkbox" name="action" value="Pemeriksaan kebocoran refrigeran" id="a4"><label class="form-check-label" for="a4">Pemeriksaan kebocoran refrigeran</label></div></div>
+              <div class="col-md-6"><div class="form-check"><input class="form-check-input" type="checkbox" name="action" value="Perbaikan jalur pipa / sambungan" id="a5"><label class="form-check-label" for="a5">Perbaikan jalur pipa / sambungan</label></div></div>
+              <div class="col-md-6"><div class="form-check"><input class="form-check-input" type="checkbox" name="action" value="Perbaikan sistem refrigerasi" id="a6"><label class="form-check-label" for="a6">Perbaikan sistem refrigerasi</label></div></div>
+              <div class="col-md-6"><div class="form-check"><input class="form-check-input" type="checkbox" name="action" value="Penggantian spare part" id="a7"><label class="form-check-label" for="a7">Penggantian spare part</label></div></div>
+              <div class="col-md-6"><div class="form-check"><input class="form-check-input" type="checkbox" name="action" value="Uji performa setelah perbaikan" id="a8"><label class="form-check-label" for="a8">Uji performa setelah perbaikan</label></div></div>
+              <div class="col-md-6"><div class="form-check"><input class="form-check-input" type="checkbox" name="action" value="Belum dilakukan tindakan" id="a9"><label class="form-check-label" for="a9">Belum dilakukan tindakan</label></div></div>
+            </div>
+          </div>
+          <div class="col-12"><label class="form-label" for="notes">Catatan teknisi / temuan tambahan</label><textarea class="form-control" rows="3" id="notes" name="notes" placeholder="Penyebab yang ditemukan, tindakan yang dilakukan, hasilnya, dan hal yang masih perlu diperiksa."></textarea></div>
+        </div>
+        <div id="recommendations" class="recommendation rounded-3 p-3 mt-3" aria-live="polite"></div>
+      </div>
+    </div>
+
+    <div class="card section-card mb-4">
+      <div class="card-body p-4">
+        <h2 class="h5 section-title mb-2"><span class="step-number">5</span>Bukti foto pekerjaan</h2>
+        <p class="hint">Pilih foto dari perangkat. Preview ditampilkan di halaman; foto dapat ikut disimpan dalam ekspor JSON lokal. Pastikan kebijakan privasi internal dipatuhi.</p>
+        <div class="row g-3">
+          <div class="col-md-6"><label class="form-label" for="photoIndoor">Foto 1 — Indoor / nameplate</label><input class="form-control photo-input" type="file" accept="image/*" capture="environment" id="photoIndoor"><div id="preview-photoIndoor" class="mt-2"></div></div>
+          <div class="col-md-6"><label class="form-label" for="photoOutdoor">Foto 2 — Outdoor / instalasi</label><input class="form-control photo-input" type="file" accept="image/*" capture="environment" id="photoOutdoor"><div id="preview-photoOutdoor" class="mt-2"></div></div>
+          <div class="col-md-6"><label class="form-label" for="photoMeasure">Foto 3 — Hasil pengukuran alat</label><input class="form-control photo-input" type="file" accept="image/*" capture="environment" id="photoMeasure"><div id="preview-photoMeasure" class="mt-2"></div></div>
+          <div class="col-md-6"><label class="form-label" for="photoOther">Foto tambahan — Kerusakan / komponen</label><input class="form-control photo-input" type="file" accept="image/*" capture="environment" id="photoOther"><div id="preview-photoOther" class="mt-2"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card section-card mb-4">
+      <div class="card-body p-4">
+        <h2 class="h5 section-title mb-3"><span class="step-number">6</span>Status pekerjaan dan hasil akhir</h2>
+        <div class="row g-3">
+          <div class="col-md-6"><label class="form-label" for="status">Status pekerjaan</label><select class="form-select" id="status" name="status"><option value="in_progress">Dalam pemeriksaan / pengerjaan</option><option value="completed">Selesai — perlu verifikasi hasil akhir</option><option value="pending_parts">Pending — menunggu spare part</option><option value="pending_followup">Pending — perlu kunjungan lanjutan</option><option value="escalated">Diteruskan ke Technical Support</option></select></div>
+          <div class="col-md-6"><label class="form-label" for="customerResult">Hasil uji setelah tindakan</label><select class="form-select" id="customerResult" name="customerResult"><option value="not_tested">Belum diuji</option><option value="normal">Pendinginan normal dan telah diverifikasi</option><option value="still_not_cold">Masih tidak dingin</option><option value="intermittent">Performa belum stabil / gangguan berulang</option></select></div>
+        </div>
+        <div class="alert alert-info mt-3 mb-0">Jika pekerjaan ditandai selesai, pastikan hasil uji akhir menunjukkan pendinginan normal dan bukti pekerjaan sesuai SOP sudah dilengkapi.</div>
+      </div>
+    </div>
+
+    <div class="card section-card mb-4">
+      <div class="card-body p-4">
+        <h2 class="h5 section-title mb-3"><span class="step-number">7</span>Eskalasi Technical Support</h2>
+        <div class="row g-3">
+          <div class="col-md-6"><label class="form-label" for="escalate">Perlu eskalasi?</label><select class="form-select" id="escalate" name="escalate"><option value="no">Tidak — ditangani sesuai prosedur</option><option value="yes">Ya — perlu dukungan teknis</option></select></div>
+          <div class="col-md-6"><label class="form-label" for="priority">Prioritas</label><select class="form-select" id="priority" name="priority"><option value="normal">Normal — konsultasi diagnosis</option><option value="high">Tinggi — pekerjaan tertahan / berulang</option><option value="urgent">Mendesak — risiko keselamatan / dampak kritis</option></select></div>
+          <div class="col-12"><label class="form-label" for="reason">Alasan eskalasi</label><select class="form-select" id="reason" name="reason"><option value="complex">Diagnosis kompleks / penyebab belum diketahui</option><option value="repeat">Keluhan berulang setelah perbaikan</option><option value="parts">Spare part atau konfirmasi komponen</option><option value="wiring">Validasi wiring diagram / manual servis</option><option value="safety">Risiko keselamatan — pekerjaan dihentikan</option></select></div>
+          <div class="col-12"><label class="form-label" for="supportNotes">Informasi untuk Technical Support</label><textarea class="form-control" rows="3" id="supportNotes" name="supportNotes" placeholder="Gejala, pemeriksaan yang sudah dilakukan, hasil pengukuran, kode error, referensi foto, dan bantuan yang dibutuhkan."></textarea></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card section-card mb-4">
+      <div class="card-body p-4">
+        <h2 class="h5 section-title mb-3">Ringkasan dan validasi</h2>
+        <div id="summary" class="preview-box mb-3">Isi formulir untuk membuat ringkasan laporan.</div>
+        <div id="validation" class="mb-3"></div>
+        <div class="d-flex flex-wrap gap-2 no-print">
+          <button class="btn btn-success" type="button" id="validateBtn">Validasi kelengkapan</button>
+          <button class="btn btn-primary" type="button" id="jsonBtn">Unduh laporan JSON + foto</button>
+          <button class="btn btn-outline-primary" type="button" id="csvBtn">Unduh ringkasan CSV</button>
+          <button class="btn btn-outline-secondary" type="button" id="copySupportBtn">Salin ringkasan eskalasi</button>
+          <button class="btn btn-outline-dark" type="button" id="printBtn">Cetak / Simpan PDF</button>
+          <button class="btn btn-outline-danger" type="reset" id="resetBtn">Kosongkan formulir</button>
+        </div>
+        <p class="hint mt-3 mb-0">File JSON berisi data formulir dan gambar dalam format data URL sehingga ukuran file dapat besar. Simpan sesuai kebijakan keamanan data perusahaan. Form ini belum mengirim data ke server.</p>
+      </div>
+    </div>
+  </form>
+  <footer class="text-center small py-3">MODENA Smart AC Diagnosis · Prototipe low-code satu file HTML · Bootstrap 5</footer>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const form = $('diagnosisForm');
+  const labels = {
+    history:{unknown:'Belum diketahui',new:'Baru diinstal',previous_repair:'Pernah diperbaiki',repeat_complaint:'Keluhan berulang'},
+    airflow:{normal:'Normal',weak:'Lemah',none:'Tidak ada aliran udara'},
+    indoor:{normal:'Normal secara visual',dirty:'Filter / evaporator kotor',ice:'Ada bunga es',water:'Ada kebocoran air',other:'Kondisi lain'},
+    outdoor:{running:'Beroperasi',stops:'Berhenti setelah beberapa saat',not_running:'Tidak beroperasi',unknown:'Belum dapat dipastikan'},
+    coil:{clean:'Bersih, sirkulasi normal',dirty:'Kotor / aliran udara terhambat',unknown:'Belum diperiksa'},
+    sensor:{not_checked:'Belum diperiksa',normal:'Normal',abnormal:'Di luar spesifikasi'},
+    leak:{not_tested:'Belum diuji',no_leak_found:'Tidak ditemukan kebocoran pada pengujian',suspected:'Ada indikasi, perlu konfirmasi',confirmed:'Kebocoran terkonfirmasi'},
+    diagnosis:{pending:'Diagnosis masih berlangsung',airflow:'Gangguan aliran udara / kebersihan',electrical:'Gangguan kelistrikan / kontrol',refrigerant:'Gangguan sistem refrigerasi',sensor:'Gangguan sensor',unknown:'Penyebab belum teridentifikasi',confirmed_other:'Penyebab lain — terverifikasi'},
+    status:{in_progress:'Dalam pemeriksaan / pengerjaan',completed:'Selesai — verifikasi hasil akhir',pending_parts:'Pending — menunggu spare part',pending_followup:'Pending — perlu kunjungan lanjutan',escalated:'Diteruskan ke Technical Support'},
+    customerResult:{not_tested:'Belum diuji',normal:'Pendinginan normal dan telah diverifikasi',still_not_cold:'Masih tidak dingin',intermittent:'Performa belum stabil / gangguan berulang'},
+    escalate:{no:'Tidak',yes:'Ya'},
+    reason:{complex:'Diagnosis kompleks / penyebab belum diketahui',repeat:'Keluhan berulang setelah perbaikan',parts:'Spare part atau konfirmasi komponen',wiring:'Validasi wiring diagram / manual servis',safety:'Risiko keselamatan — pekerjaan dihentikan'},
+    priority:{normal:'Normal',high:'Tinggi',urgent:'Mendesak'}
+  };
+  const photos = {};
+  const readPhoto = (file) => new Promise((resolve,reject) => {
+    if (!file) return resolve(null);
+    const reader = new FileReader();
+    reader.onload = () => resolve({name:file.name,type:file.type,dataUrl:reader.result});
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+  const val = id => $(id).value.trim();
+  const getActions = () => [...form.querySelectorAll('input[name="action"]:checked')].map(x=>x.value);
+  const recommendations = () => {
+    const r=[];
+    if (val('airflow')==='weak' || val('airflow')==='none' || val('coil')==='dirty' || val('indoor')==='dirty')
+      r.push('Periksa filter, evaporator/kondensor, kipas, dan hambatan aliran udara; bersihkan atau perbaiki sesuai temuan lalu uji ulang.');
+    if (['stops','not_running'].includes(val('outdoor')))
+      r.push('Periksa kode error, suplai listrik, koneksi, sistem kontrol, serta penyebab proteksi kompresor sesuai manual servis.');
+    if (['suspected','confirmed'].includes(val('leak')))
+      r.push('Lakukan uji kebocoran dengan metode yang disetujui. Perbaiki sumber kebocoran sebelum vakum dan pengisian refrigeran sesuai spesifikasi pabrikan.');
+    if (val('sensor')==='abnormal')
+      r.push('Periksa sensor, konektor, kabel, dan nilai hasil ukur terhadap tabel servis model.');
+    if (!val('voltage') || !val('current') || !val('tin') || !val('tout'))
+      r.push('Lengkapi pengukuran listrik dan temperatur yang relevan sebelum menetapkan diagnosis akhir.');
+    if (['pending','unknown'].includes(val('diagnosis')))
+      r.push('Penyebab belum terkonfirmasi. Lanjutkan pemeriksaan atau eskalasikan ke Technical Support.');
+    if (!r.length) r.push('Verifikasi pengukuran terhadap spesifikasi model, kondisi operasi, dan beban pendinginan. Jangan menyimpulkan kerusakan dari satu parameter.');
+    return r;
+  };
+  const getData = async () => {
+    const data={};
+    [...form.querySelectorAll('input:not([type=file]), select, textarea')].forEach(el=>{
+      if (el.name && el.type!=='checkbox' && el.type!=='radio') data[el.name]=el.value.trim();
+    });
+    data.actions=getActions();
+    data.photos={};
+    for (const id of ['photoIndoor','photoOutdoor','photoMeasure','photoOther']) data.photos[id]=photos[id] || null;
+    data.recommendations=recommendations();
+    data.generatedAt=new Date().toISOString();
+    return data;
+  };
+  const renderRecommendations = () => {
+    $('recommendations').innerHTML='<strong>Rekomendasi langkah berikutnya</strong><ul class="mb-0 mt-2">'+recommendations().map(x=>'<li>'+escapeHtml(x)+'</li>').join('')+'</ul>';
+  };
+  const escapeHtml = s => String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const renderSummary = () => {
+    const items=[
+      ['Tiket',val('ticket')||'—'],['Tanggal',val('date')||'—'],['Cabang / ASC',val('branch')||'—'],
+      ['Teknisi',val('technician')||'—'],['Model / Serial',(val('model')||'—')+' / '+(val('serial')||'—')],
+      ['Kapasitas / Refrigeran',val('capacity')+' / '+val('refrigerant')],
+      ['Kode error',val('errorCode')],['Aliran udara',labels.airflow[val('airflow')]],
+      ['Outdoor / kompresor',labels.outdoor[val('outdoor')]],['Diagnosis',labels.diagnosis[val('diagnosis')]],
+      ['Tindakan',getActions().join(', ')||'—'],['Status',labels.status[val('status')]],
+      ['Hasil akhir',labels.customerResult[val('customerResult')]],['Eskalasi',labels.escalate[val('escalate')]],
+      ['Foto terlampir',Object.values(photos).filter(Boolean).length+' dari 4']
+    ];
+    $('summary').innerHTML='<div class="row g-2">'+items.map(([k,v])=>'<div class="col-md-6"><div class="border rounded-3 p-2 h-100"><div class="hint">'+escapeHtml(k)+'</div><div class="fw-semibold">'+escapeHtml(v)+'</div></div></div>').join('')+'</div>';
+  };
+  const validate = () => {
+    const checks=[
+      ['Identitas model dan serial',!!val('model')&&!!val('serial')],
+      ['Identitas teknisi dan cabang',!!val('technician')&&!!val('branch')],
+      ['Pengukuran tegangan, arus, dan temperatur',!!val('voltage')&&!!val('current')&&!!val('tin')&&!!val('tout')],
+      ['Catatan teknisi',!!val('notes') || val('diagnosis')!=='pending'],
+      ['Bukti foto dasar',!!photos.photoIndoor&&!!photos.photoOutdoor&&!!photos.photoMeasure],
+      ['Verifikasi hasil akhir jika status selesai',val('status')!=='completed'||val('customerResult')==='normal'],
+      ['Catatan eskalasi',val('escalate')!=='yes'&&val('status')!=='escalated'||!!val('supportNotes')]
+    ];
+    $('validation').innerHTML='<div class="list-group">'+checks.map(([name,ok])=>`<div class="list-group-item d-flex justify-content-between align-items-center"><span>${escapeHtml(name)}</span><span class="badge ${ok?'text-bg-success':'text-bg-warning'}">${ok?'Lengkap':'Perlu dilengkapi'}</span></div>`).join('')+'</div><p class="hint mt-2 mb-0">Validasi ini hanya memeriksa kelengkapan isian, bukan ketepatan teknis diagnosis.</p>';
+  };
+  const download = (filename,content,type) => {
+    const blob=new Blob([content],{type});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a'); a.href=url; a.download=filename; a.click();
+    setTimeout(()=>URL.revokeObjectURL(url),1000);
+  };
+  const supportText = () => [
+    'PERMINTAAN BANTUAN TECHNICAL SUPPORT MODENA',
+    'Tiket: '+(val('ticket')||'—'),'Cabang / ASC: '+(val('branch')||'—'),'Teknisi: '+(val('technician')||'—'),
+    'Model / Serial: '+(val('model')||'—')+' / '+(val('serial')||'—'),'Keluhan: AC menyala tetapi tidak dingin',
+    'Kode error: '+val('errorCode'),'Kondisi indoor: '+labels.indoor[val('indoor')],
+    'Aliran udara: '+labels.airflow[val('airflow')],'Outdoor: '+labels.outdoor[val('outdoor')],
+    'Tegangan: '+(val('voltage')||'—')+' V; Arus: '+(val('current')||'—')+' A',
+    'Temperatur masuk/keluar: '+(val('tin')||'—')+' / '+(val('tout')||'—')+' °C',
+    'Tekanan: '+(val('pressure')||'—')+' '+val('pressureUnit'),'Uji kebocoran: '+labels.leak[val('leak')],
+    'Diagnosis: '+labels.diagnosis[val('diagnosis')],'Tindakan: '+(getActions().join(', ')||'—'),
+    'Catatan: '+(val('notes')||'—'),'Foto: '+Object.entries(photos).filter(([k,v])=>v).map(([k,v])=>v.name).join(', '),
+    'Alasan: '+labels.reason[val('reason')],'Prioritas: '+labels.priority[val('priority')],
+    'Bantuan yang diperlukan: '+(val('supportNotes')||'—')
+  ].join('\n');
+
+  form.addEventListener('input',()=>{renderRecommendations();renderSummary();});
+  form.addEventListener('change',()=>{renderRecommendations();renderSummary();});
+  document.querySelectorAll('.photo-input').forEach(input=>{
+    input.addEventListener('change',async()=>{
+      const file=input.files && input.files[0], id=input.id;
+      if (!file) { delete photos[id]; $('preview-'+id).innerHTML=''; renderSummary(); return; }
+      if (!file.type.startsWith('image/')) { alert('Pilih file gambar.'); input.value=''; return; }
+      try {
+        photos[id]=await readPhoto(file);
+        $('preview-'+id).innerHTML='<div class="preview-box"><img class="photo-preview" alt="Pratinjau '+escapeHtml(file.name)+'" src="'+photos[id].dataUrl+'"><div class="small mt-1">'+escapeHtml(file.name)+' · '+Math.round(file.size/1024)+' KB</div><button type="button" class="btn btn-sm btn-outline-danger mt-2" data-remove-photo="'+id+'">Hapus foto</button></div>';
+        renderSummary();
+      } catch(e) { alert('Foto tidak dapat dibaca.'); }
+    });
+  });
+  document.addEventListener('click',e=>{
+    const btn=e.target.closest('[data-remove-photo]');
+    if (btn) { const id=btn.dataset.removePhoto; delete photos[id]; $(id).value=''; $('preview-'+id).innerHTML=''; renderSummary(); }
+  });
+  $('validateBtn').addEventListener('click',validate);
+  $('jsonBtn').addEventListener('click',async()=>{
+    const data=await getData();
+    download('MODENA_AC_Diagnosis_'+(val('ticket')||'report').replace(/[^a-z0-9_-]/gi,'_')+'.json',JSON.stringify(data,null,2),'application/json');
+  });
+  $('csvBtn').addEventListener('click',async()=>{
+    const data=await getData();
+    const rows=[['Field','Value'],...Object.entries(data).filter(([k])=>k!=='photos').map(([k,v])=>[k,Array.isArray(v)?v.join('; '):String(v)])];
+    const csv=rows.map(row=>row.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(',')).join('\r\n');
+    download('MODENA_AC_Diagnosis_'+(val('ticket')||'report').replace(/[^a-z0-9_-]/gi,'_')+'.csv','\ufeff'+csv,'text/csv;charset=utf-8');
+  });
+  $('copySupportBtn').addEventListener('click',async()=>{
+    try { await navigator.clipboard.writeText(supportText()); alert('Ringkasan eskalasi disalin.'); }
+    catch(e) { download('MODENA_Technical_Support.txt',supportText(),'text/plain;charset=utf-8'); }
+  });
+  $('printBtn').addEventListener('click',()=>window.print());
+  $('resetBtn').addEventListener('click',()=>{
+    Object.keys(photos).forEach(k=>delete photos[k]);
+    document.querySelectorAll('.photo-input').forEach(i=>i.value='');
+    document.querySelectorAll('[id^="preview-"]').forEach(el=>el.innerHTML='');
+    $('validation').innerHTML='';
+    setTimeout(()=>{ $('date').value=new Date().toISOString().slice(0,10); renderRecommendations();renderSummary(); },0);
+  });
+  $('date').value=new Date().toISOString().slice(0,10);
+  renderRecommendations(); renderSummary();
+})();
+</script>
+</body>
+</html>
